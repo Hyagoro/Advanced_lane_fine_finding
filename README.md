@@ -42,9 +42,9 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 #### Perspective transform.
 
 From here, all steps of the pipeline use undistorded images.
-The first step of the pipeline os to warp the image using `cv2.getPerspectiveTransform(src, dst)` to get an 'eye bird view'.
+The first step of the pipeline is to warp the image using `cv2.getPerspectiveTransform(src, dst)` to get an 'eye bird view'.
 
-The code for my perspective transform includes a function which appears in code cell 8. I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform includes a function which appears in code cell 8. I chose to hardcode the source and destination points in the following manner:
 
 ```python
 offset1 = 280
@@ -68,10 +68,8 @@ I verified that my perspective transform was working as expected by verifying th
 
 #### Transforms.
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
-
+I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at note 9).
 Here's an example of the 3 transformations I used (each transfomation is binarized) :
-
 
 Sobel operator :
 
@@ -102,7 +100,7 @@ lab_b = lab[:, :, 2]
 
 ![alt text][image11]
 
-And finaly merge all these tranformation and apply a median blur with kernel=7 to remove outliers.
+I finally merged all these tranformation and applied a median blur with kernel=7 to remove outliers.
 ```python
 combined_binary = cv2.medianBlur(combined_binary,7)
 ```
@@ -111,7 +109,7 @@ combined_binary = cv2.medianBlur(combined_binary,7)
 #### Fit polynomial
 
 There is a function `find_lanes` to find main lane lines using sliding windows.
-Then, each lines from `find_lanes` are used to feed `fit_poly` function. This `fit_poly` function return 2nd order polynomial using :
+Then, each line from `find_lanes` is used to feed `fit_poly` function. This `fit_poly` function returns 2nd order polynomial using :
 ```python
 np.polyfit(right_line.ally, right_line.allx, 2)
 ```
@@ -126,7 +124,7 @@ Meters per pixel for Y = 3.7/700
 
 #### End of the pipeline
 
-I implemented this step in not 29 in my code in the function `global_process()`. This function group all other function unwarp the image using the invert matrix then draw a lane between the two polynomials over the original image. Here is an example of my result on a test image:
+I implemented this step in note 29 in my code in the function `global_process()`. This function groups all other functions and unwarps the image using the invert matrix, then draws a lane between the two polynomials over the original image. Here is an example of my result on a test image:
 
 ![alt text][image14]
 
@@ -140,14 +138,10 @@ Here's a [link to my video result](./project_video_processed_met2.mp4)
 
 ### Discussion
 
-#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
-
-During my work, I tried to use a method to find windows centroids using convolutions on a binary image, but the result wasn't satisfactory. The idea was to improve the function to find lines. I think it doesn't work bacause my pipeline was already adapted to the first function with sliding windows. 
+During my work, I tried to use a method to find windows centroids using convolutions on a binary image, but the result wasn't satisfactory. The idea was to improve the function to find lines. I think it doesn't work because my pipeline was already adapted to the first function with sliding windows. 
 
 One important thing was to find areas of interest for warp function, the pipeline was very sensitive to every small changes.
 
 I spent also a lot of time to think how to correct frames without enough information. I implemented a function to create an history of n previous polynomials in order to "predict" when the information was missing.
 
-My pipeline work correctly in favorable conditions, but when there is too much light, shadow or texture changes on the road, my pipeline fails. I think I must find better image transformations or improve the way I find the lanes on the road with this polynomial history I made. 
- 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+My pipeline works correctly in favorable conditions, but when there is too much light, shadow or texture changes on the road, my pipeline fails. I think I must find better image transformations or improve the way I find the lanes on the road with this polynomial history I made. 
