@@ -132,7 +132,7 @@ I implemented this step in note 29 in my code in the function `global_process()`
 
 ### Pipeline (video)
 
-Here's a [link to my video result](./project_video_processed_met2.mp4)
+Here's a [link to my video result](./project_video_processed_met3.mp4)
 
 ---
 
@@ -144,4 +144,4 @@ One important thing was to find areas of interest for warp function, the pipelin
 
 I spent also a lot of time to think how to correct frames without enough information. I implemented a function to create an history of n previous polynomials in order to "predict" when the information was missing.
 
-My pipeline works correctly in favorable conditions, but when there is too much light, shadow or texture changes on the road, my pipeline fails. I think I must find better image transformations or improve the way I find the lanes on the road with this polynomial history I made. 
+My pipeline works correctly in favorable conditions, but when there is too much light, shadow or texture changes on the road, my pipeline fails. I think I must find better image transformations or improve the way I find the lanes on the road with this polynomial history I made. One way to improve my pipeline could be to implement a function to reduce noise using something like HDR to avoid fails when there is shadow or too much light on the image.
