@@ -134,7 +134,7 @@ I implemented this step in note 29 in my code in the function `global_process()`
 
 Here's a [link to my video result](./project_video_processed_met3.mp4)
 
-Here's a [link to my challenge video result](./challenge_video_processed_met3.mp4.mp4)
+Here's a [link to my challenge video result](./challenge_video_processed_met3.mp4)
 
 ---
 
